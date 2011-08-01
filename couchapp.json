@@ -1,0 +1,4 @@
+{
+    "name": "csv2couchdb",
+    "description": "CouchApp to integrate data from CSV files inside couchdb"
+}
