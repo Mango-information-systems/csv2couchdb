@@ -7,7 +7,7 @@ C2C (CSV to Couchdb) is a couchapp allowing to populate couchdb using data from 
 * Read local files
     * Select multiple files at a time
     * Automatic detection of CSV format
-	* Preview loaded files to adjust settings
+    * Preview loaded files to adjust settings
 * Customize document to generate
     * Filter rows and columns
     * Customize header labels
@@ -15,32 +15,32 @@ C2C (CSV to Couchdb) is a couchapp allowing to populate couchdb using data from 
     * Generate ids based on file name or use couchdb random ids
 * Bulk load to couchdb
     * Select target database
-	* Overwrite existing documents in case of conflict (optional)
+    * Overwrite existing documents in case of conflict (optional)
 
 ### Usage examples:
 
 Consider the following CSV file that would be stored in your computer:
 
     color;popularity
-	blue;5
-	green;4.5
-	red;3
-	orange;4
+    blue;5
+    green;4.5
+    red;3
+    orange;4
 
 1. Generate one document per file
 
     You would insert the following document to couchdb:
 
     ````javascript
-	{
-	    "headers": ["color", "popularity"],
-		"rows":[
-		 ["blue","5"],
-    	 ["green","4.5"],
-		 ["red","3"],
-		 ["orange","4"]
-		]
-	}
+    {
+        "headers": ["color", "popularity"],
+        "rows":[
+         ["blue","5"],
+         ["green","4.5"],
+         ["red","3"],
+         ["orange","4"]
+        ]
+    }
     ````
 
 2. Generate one document per row
@@ -48,28 +48,28 @@ Consider the following CSV file that would be stored in your computer:
     You would insert the following documents to couchdb:
 
     ````javascript
-	{
-	"color" : "blue",
-	"popularity" : "5"
-	},
-	{
-	"color" : "green",
-	"popularity": "4.5"
-	},
-	{
-	"color" : "red",
-	"popularity" : "3"
-	},
-	{
-	"color" : "orange",
-	"popularity" : "4"
-	}
+    {
+    "color" : "blue",
+    "popularity" : "5"
+    },
+    {
+    "color" : "green",
+    "popularity": "4.5"
+    },
+    {
+    "color" : "red",
+    "popularity" : "3"
+    },
+    {
+    "color" : "orange",
+    "popularity" : "4"
+    }
     ````
 
 3. Filter rows
 
     Setting option `Get lines from 1 to 2` would generate a document containing only the first two lines (`blue` and `green` data)
-	
+    
 4. Filter columns
 
     Untick the column header `popularity` to insert only colors.
@@ -77,24 +77,24 @@ Consider the following CSV file that would be stored in your computer:
 5. Customize properties names:
 
     Click on `popularity` in the preview and replace it by another label you want, eg `rating`
-	
+    
 ###Installation
 
 Simply replicate the sample couchapp to your couchdb instance:
-	
-	curl -X POST http://user:pass@YOURCOUCH/_replicate -d '{"source":"http://mango-reports.cloudant.com/mango-apps/","target":"YOURDB", "doc_ids":["_design/csv2couchdb"]}' -H "Content-type: application/json"
-	
-	After you install it, the app is available from this url: 
+    
+    curl -X POST http://user:pass@YOURCOUCH/_replicate -d '{"source":"http://mango-reports.cloudant.com/mango-apps/","target":"YOURDB", "doc_ids":["_design/csv2couchdb"]}' -H "Content-type: application/json"
+    
+After you install it, the app is available from this url: 
 
-    http://yourcouch/yourdb/_design/csv2couchdb/index.html
+http://yourcouch/yourdb/_design/csv2couchdb/index.html
 
-	
+    
 ### Status
 
 File2Couch is a new software and certainly contains bugs. It has been tested in Firefox 5 and Google chrome 12. Large files could be inserted using Firefox, whereas their parsing caused Google Chrome tab to crash.
 
 Consider this app as an alpha software.
-	
+    
 Thanks for reporting any issue that you would find.
 
 ### Roadmap
@@ -115,20 +115,20 @@ Features will be added according from feedback received from users.
 Thanks for telling us the features you would like to see:
 
 * Sources
-	* API: load data from APIs
-	* allow entering data in a text area input
+    * API: load data from APIs
+    * allow entering data in a text area input
     * Support fixed-length files
-	* Read Excel file format
+    * Read Excel file format
 
 * Document generation
     * batch mode: support loading of multiple files that all have the same structure, without having to define settings for each of them
     * Support addition of extra fields to the document, typed by the user
-	* Add data type selection option
+    * Add data type selection option
 
 * Possible further extensions
     * support RDBMS as a source
     * allow transformation of data (joining from different sources, more advanced filtering, aggregation ...)
-	* create server side version of the tool, with automated run option (scheduling)
+    * create server side version of the tool, with automated run option (scheduling)
 
 contact: either via github message, twitter (@mango_info) or via contact form in http://www.mango-is.com
 
