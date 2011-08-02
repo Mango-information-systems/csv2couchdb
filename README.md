@@ -1,6 +1,6 @@
-##C2C - populate couchdb from delimited files
+##csv2couchdb - populate couchdb from delimited files
 
-C2C (CSV to Couchdb) is a couchapp allowing to populate couchdb using data from CSV files. It takes advantage of the HTML5 file API to process files at client side before the upload to couchdb.
+csv2couchdb is a couchapp allowing to populate couchdb using data from CSV files. It takes advantage of the HTML5 file API to process files at client side before the upload to couchdb.
 
 ### Features:
 
