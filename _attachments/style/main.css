@@ -37,7 +37,6 @@ div#session {
 	position:absolute;
 	top:0;
 	right:0;
-//	width:500px;
 	float:right;
 	padding:7px;
 }
@@ -54,7 +53,6 @@ div#session > form > input[type="text"], div#session > form > input[type="passwo
 
 div.fileSettings {
 	position:absolute;
-	top:40;
 	width:375px;
 	overflow:auto;
 	padding-left:5px;
@@ -63,7 +61,6 @@ div.filePreview {
 	position: absolute;
 	top: 5px;
 	left: 395px;
-//	width: 64%;
 	height: 305px;
 	overflow: auto;
 }
@@ -75,7 +72,6 @@ div.filePreview {
 
 div.container {
 	position: relative;
-//	width:1200px;
 	height: 313px;
 	overflow:auto;
 	margin:10px;
@@ -308,21 +304,3 @@ legend {
 .conflict, .fail {
 	margin-top:16px;
 }
-
-label {
-//	margin-left:15px;
-}
-
-// input[type="checkbox"]:nth-of-type(2n) {
-// 	margin-left:300px;
-// }
-/*
-div {
-	border:2px solid #9cf;
-}
-
-/*
-.filePreview > div:nth-child(2) {
-border:3px solid red;
-}
-*/
