@@ -12,5 +12,6 @@ couchapp_load([
   "vendor/couchapp/jquery.couch.js",
   "vendor/couchapp/jquery.couch.app.js",
   "vendor/couchapp/jquery.couch.app.util.js",
-  "vendor/couchapp/jquery.csvIn.min.js"
+  "vendor/couchapp/jquery.csvIn.min.js",
+  "vendor/couchapp/app.js"
 ]);
