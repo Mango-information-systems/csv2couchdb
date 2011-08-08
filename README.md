@@ -78,6 +78,11 @@ Consider the following CSV file that would be stored in your computer:
 
     Click on `popularity` in the preview and replace it by another label you want, eg `rating`
     
+### Demo
+
+A demo is available at this location: http://mango-reports.cloudant.com/mango-apps/_design/csv2couchdb/index.html
+**Warning**: the demo couch is read-only, so you will not have access to the whole application. We recommend replicating to your own couch to get all features (see next section).
+    
 ###Installation
 
 Simply replicate the sample couchapp to your couchdb instance:
@@ -91,7 +96,7 @@ http://yourcouch/yourdb/_design/csv2couchdb/index.html
     
 ### Status
 
-File2Couch is a new software and certainly contains bugs. It has been tested in Firefox 5 and Google chrome 12. Large files could be inserted using Firefox, whereas their parsing caused Google Chrome tab to crash.
+csv2couchdb is a new software and certainly contains bugs. It has been tested in Firefox 5 and Google chrome 12. Large files could be inserted using Firefox, whereas their parsing caused Google Chrome tab to crash.
 
 Consider this app as an alpha software.
     
@@ -130,7 +135,7 @@ Thanks for telling us the features you would like to see:
     * allow transformation of data (joining from different sources, more advanced filtering, aggregation ...)
     * create server side version of the tool, with automated run option (scheduling)
 
-contact: either via github message, twitter (@mango_info) or via contact form in http://www.mango-is.com
+contact: either via github message, twitter ([@mango_info](http://twitter.com/mango_info)) or via contact form in http://www.mango-is.com
 
 ### License and credits
 
