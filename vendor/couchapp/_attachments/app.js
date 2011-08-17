@@ -959,7 +959,9 @@ console.log(jqXHR, textStatus, errorThrown)
 			// reset data related to previous processing
 			$('#step4').hide();
 			$('#step1').show();
-			$('#step2').find('div.container').not('div.template').remove();
+			$('#step2').find('div.container').not('.template').remove();
+			$('#conflictDocs, #failDocs').find('form').not('.template').remove();
+			$('#conflictDocs, #failDocs').find('p').remove();
 			filesData = [];
 			$('#files').replaceWith('<input type="file" id="files" name="files[]" multiple/>');
 			$('#bulkLoadSpinner').show();
