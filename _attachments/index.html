@@ -21,164 +21,169 @@
 			<a href="https://github.com/Mango-information-systems/csv2couchdb" target="new">github</a> - 
 			<a href="license.html">License and credits</a>
 		</div>
-		<div id="step4">
-			<div id="bulkLoadSpinner">
-				<p class="divTitle">
-					Bulk loading to the couch, time to relax...
-					<img src="images/spinner.gif" alt="loading spinner"/>
+		<div>
+			<div id="step4">
+				<div id="bulkLoadSpinner">
+					<p class="divTitle">
+						Bulk loading to the couch, time to relax...
+						<img src="images/spinner.gif" alt="loading spinner"/>
+					</p>
+				</div>
+				<div id="failDocs">
+					<div class="divTitle">Errors</div>
+					<form class="fail template" action="#">
+						document <span></span> could not be inserted. Error message: <span></span>
+						<input type="submit" name="retry" value="retry"/>
+					</form>
+				</div>
+				<div id="successDocs">
+					<div class="divTitle">Insertions</div>
+					<p></p>
+				</div>
+				<div id="conflictDocs">
+					<div class="divTitle">Updates</div>
+					<form class="conflict template" action="#">
+						document <span></span> already exists in the database
+						<input type="submit" name="overwrite" value="overwrite"/>
+					</form>
+				</div>
+				<div id="postProcessing">
+					<div id="moreFiles">
+						<div>
+							<img src="images/localCSVs.png" alt="local CSV files"/>
+						</div>
+						<div>
+							<h3>Upload more files</h3>
+							<p>Click to select one or more CSV files</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="step1">
+				<p>
+					couchapp to populate couchdb from CSV files. Client side processing using HTML5 file API. Uses bulk insert, with document update option.
 				</p>
-			</div>
-			<div id="failDocs">
-				<div class="divTitle">Errors</div>
-				<form class="fail template" action="#">
-					document <span></span> could not be inserted. Error message: <span></span>
-					<input type="submit" name="retry" value="retry"/>
+				<form id="localFilesForm" action="#">
+					<label for="files">Select your files</label>
+					<input type="file" id="files" name="files[]" multiple />
 				</form>
-			</div>
-			<div id="successDocs">
-				<div class="divTitle">Insertions</div>
-				<p></p>
-			</div>
-			<div id="conflictDocs">
-				<div class="divTitle">Updates</div>
-				<form class="conflict template" action="#">
-					document <span></span> already exists in the database
-					<input type="submit" name="overwrite" value="overwrite"/>
-				</form>
-			</div>
-			<div id="postProcessing">
-				<div id="moreFiles">
+				<div id="localFiles">
 					<div>
 						<img src="images/localCSVs.png" alt="local CSV files"/>
 					</div>
 					<div>
-						<h3>Upload more files</h3>
+						<h3>Local upload</h3>
 						<p>Click to select one or more CSV files</p>
 					</div>
 				</div>
-			</div>
-		</div>
-		<div id="step1">
-			<p>
-				couchapp to populate couchdb from CSV files. Client side processing using HTML5 file API. Uses bulk insert, with document update option.
-			</p>
-			<form id="localFilesForm" action="#">
-				<label for="files">Select your files</label>
-				<input type="file" id="files" name="files[]" multiple />
-			</form>
-			<div id="localFiles">
-				<div>
-					<img src="images/localCSVs.png" alt="local CSV files"/>
+				<div id="howTo">
+					<h3 class="divTitle">How it works</h3>
+					<ol>
+						<li>Login to couchdb (optional)</li>
+						<li>Select CSV files located in your computer</li>
+						<li>Adjust settings (customize labels, filter lines and columns)</li>
+						<li>Load into couchdb</li>
+					</ol>
 				</div>
-				<div>
-					<h3>Local upload</h3>
-					<p>Click to select one or more CSV files</p>
-				</div>
-			</div>
-			<div id="howTo">
-				<h3 class="divTitle">How it works</h3>
-				<ol>
-					<li>Login to couchdb (optional)</li>
-					<li>Select CSV files located in your computer</li>
-					<li>Adjust settings (customize labels, filter lines and columns)</li>
-					<li>Load into couchdb</li>
-				</ol>
-			</div>
-			<div id="techDisclaimer">
-				<div>
-					<img src="images/html5-badge-h-performance.png" alt="html5 logo"/>
-				</div>
-				<div>
-					<h3 style="margin-left:30px;">HTML5 file API</h3>
-					<p id="html5Status">This application works only on browsers supporting HTML5 file API. You're good :)</p>
-				</div>
-			</div>
-		</div>
-		<div id="step2">
-			<div class="template container" >
-			<form action="#">
-				<div class="divTitle fileName"></div>
-				<div class="fileSettings">
-					<fieldset>
-						<legend>Column delimitor(s)</legend>
-						<input type="checkbox" name="delimitor" value="tab" id="tab"/>
-						<label for="tab">tab</label>
-						<input type="checkbox" name="delimitor" value="comma" id="comma"/>
-						<label for="comma">comma (,)</label>
-						<input type="checkbox" name="delimitor" value="semicolon" id="semicolon"/>
-						<label for="semicolon">semicolon (;)</label>
-						<input type="checkbox" name="delimitor" value="colon" id="colon"/>
-						<label for="colon">colon (:)</label>
-						<input type="checkbox" name="delimitor" value="hyphen" id="hyphen"/>
-						<label for="hyphen">hyphen (-)</label>
-						<input type="checkbox" name="delimitor" value="space" id="space"/>
-						<label for="space">space</label>
-						<input type="checkbox" name="delimitor" value="custom" id="custom"/>
-						<label for="custom">
-							custom
-							<input type="text" class="customdelimitors"id="customDelimitorTxt"/>
-						</label>
-					</fieldset>
-					<fieldset>
-						<legend>Quote marker</legend>
-						<input type="radio" name="quoteMark" value="doubleQuote" id="doubleQuote"/>
-						<label for="doubleQuote">double quote (")</label>
-						<input type="radio" name="quoteMark" value="simpleQuote" id="simpleQuote"/>
-						<label for="simpleQuote">simple quote (')</label>
-						<input type="radio" name="quoteMark" value="none" id="none"/>
-						<label for="none">none</label>
-					</fieldset>
-					<fieldset>
-						<legend>Other settings</legend>
-						<input type="checkbox" name="header" id="header"/>
-						<label for="header">First line is header</label><br/>
-						<label for="startLine">Get lines from</label>
-						<input type="text" name="startLine" id="startLine" class="smallText"/>
-						<label for="endLine">to</label>
-						<input type="text" name="endLine" id="endLine" class="smallText"/><br/>
-						<span class="totalRows"></span>
-					</fieldset>
-				</div>
-				<div class="filePreview">
-					<div class="divTitle">Reading file...</div>
+				<div id="techDisclaimer">
 					<div>
-						<div class="progress_bar"><div class="percent">0%</div></div>
+						<img src="images/html5-badge-h-performance.png" alt="html5 logo"/>
+					</div>
+					<div>
+						<h3 style="margin-left:30px;">HTML5 file API</h3>
+						<p id="html5Status">This application works only on browsers supporting HTML5 file API. You're good :)</p>
 					</div>
 				</div>
-			</form>
 			</div>
-			<p class="divTitle">
-				Review each file settings here:
-			</p>
-			<div id="filesContainer"></div>
-			<input type="submit" name="back" value="back"/>
-			<input type="submit" name="next" value="next"/>
-		</div>
-		<div id="step3">
-			<form id="loadSettings" action="#">
-				<div class="divTitle">Output settings</div>
-				<fieldset>
-					<legend>Documents settings</legend>
-					<input type="radio" name="outputFormat" value="byFile" id="byFile" checked="checked"/>
-					<label for="byFile">one document per flat file</label>
-					<input type="radio" name="outputFormat" value="byRow" id="byRow"/>
-					<label for="byRow">one document per row</label><br/>
-					<label for="ids">Generate _ids from</label>
-					<select name="ids" id="ids">
-						<option value="custom">file name</option>
-						<option value="auto">couchdb random uuid</option>
-					</select>
-				</fieldset>
-				<fieldset>
-					<legend>Couchdb connection</legend>
-					<label for="dbName">Select database</label>
-					<select name="dbName" id="dbName">
-					</select>	
-				</fieldset>
+			<div id="step2">
+				<div class="template container" >
+				<form action="#">
+					<div class="divTitle fileName"></div>
+					<div class="fileSettings">
+						<fieldset>
+							<legend>Column delimitor(s)</legend>
+							<input type="checkbox" name="delimitor" value="tab" id="tab"/>
+							<label for="tab">tab</label>
+							<input type="checkbox" name="delimitor" value="comma" id="comma"/>
+							<label for="comma">comma (,)</label>
+							<input type="checkbox" name="delimitor" value="semicolon" id="semicolon"/>
+							<label for="semicolon">semicolon (;)</label>
+							<input type="checkbox" name="delimitor" value="colon" id="colon"/>
+							<label for="colon">colon (:)</label>
+							<input type="checkbox" name="delimitor" value="hyphen" id="hyphen"/>
+							<label for="hyphen">hyphen (-)</label>
+							<input type="checkbox" name="delimitor" value="space" id="space"/>
+							<label for="space">space</label>
+							<input type="checkbox" name="delimitor" value="custom" id="custom"/>
+							<label for="custom">
+								custom
+								<input type="text" class="customdelimitors"id="customDelimitorTxt"/>
+							</label>
+						</fieldset>
+						<fieldset>
+							<legend>Quote marker</legend>
+							<input type="radio" name="quoteMark" value="doubleQuote" id="doubleQuote"/>
+							<label for="doubleQuote">double quote (")</label>
+							<input type="radio" name="quoteMark" value="simpleQuote" id="simpleQuote"/>
+							<label for="simpleQuote">simple quote (')</label>
+							<input type="radio" name="quoteMark" value="none" id="none"/>
+							<label for="none">none</label>
+						</fieldset>
+						<fieldset>
+							<legend>Other settings</legend>
+							<input type="checkbox" name="header" id="header"/>
+							<label for="header">First line is header</label><br/>
+							<label for="startLine">Get lines from</label>
+							<input type="text" name="startLine" id="startLine" class="smallText"/>
+							<label for="endLine">to</label>
+							<input type="text" name="endLine" id="endLine" class="smallText"/><br/>
+							<span class="totalRows"></span>
+						</fieldset>
+					</div>
+					<div class="filePreview">
+						<div class="divTitle">Reading file...</div>
+						<div>
+							<div class="progress_bar"><div class="percent">0%</div></div>
+						</div>
+					</div>
+				</form>
+				</div>
+				<p class="divTitle">
+					Review each file settings here:
+				</p>
+				<div id="filesContainer"></div>
 				<input type="submit" name="back" value="back"/>
-				<input type="submit" name="next" value="load to couchdb"/>
-			</form>
+				<input type="submit" name="next" value="next"/>
+			</div>
+			<div id="step3">
+				<form id="loadSettings" action="#">
+					<div class="divTitle">Output settings</div>
+					<fieldset>
+						<legend>Documents settings</legend>
+						<input type="radio" name="outputFormat" value="byFile" id="byFile" checked="checked"/>
+						<label for="byFile">one document per flat file</label>
+						<input type="radio" name="outputFormat" value="byRow" id="byRow"/>
+						<label for="byRow">one document per row</label><br/>
+						<label for="ids">Generate _ids from</label>
+						<select name="ids" id="ids">
+							<option value="custom">file name</option>
+							<option value="auto">couchdb random uuid</option>
+						</select>
+					</fieldset>
+					<fieldset>
+						<legend>Couchdb connection</legend>
+						<label for="dbName">Select database</label>
+						<select name="dbName" id="dbName">
+						</select>	
+					</fieldset>
+					<input type="submit" name="back" value="back"/>
+					<input type="submit" name="next" value="load to couchdb"/>
+				</form>
+			</div>
 		</div>
 	</body>
-	<script src="vendor/couchapp/loader.js"></script>
+	<script src="scripts/jquery-1.6.1.min.js"></script>
+	<script src="scripts/jquery.couch.js"></script>
+	<script src="scripts/jquery.csvIn.min.js"></script>
+	<script src="scripts/app.js"></script>
 </html>
