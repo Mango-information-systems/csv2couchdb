@@ -110,8 +110,7 @@ The following changes are planned:
 
 * Improve errors handling
 * If possible, solve crash of the app in Google Chrome when parsing of large files
-* Performance improvement 
-* Cleanup code and improve software architecture
+* Performance improvement
 
 #### New features
 

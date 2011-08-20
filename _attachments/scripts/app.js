@@ -523,15 +523,29 @@ Consists in 5 steps:
 		// get output settings
 		var dbName = $('#dbName').val();
 
-		$db = $.couch.db(dbName);
+		var bulkLoader = new Worker('scripts/bulkLoad.js');
 
-		$db.bulkSave({"docs":docs},{
-			success: function(result) {
+		// bulk upload using workers - logic inspired by maxodgen's recline
+		// https://github.com/maxogden/recline/blob/master/attachments/script/costco.js#L111
+
+		var url = window.location.protocol + "//" + window.location.host + "/" + dbName + "/_bulk_docs";
+
+		bulkLoader.postMessage({"docs":docs, "url":url });
+
+		bulkLoader.onmessage = function (event) {
+		// react according to result of processing
+			var result = event.data;
+			
+			result = $.parseJSON(event.data);
+			
+			if(result.success) {
 			// confirm that insertion was succcessfully done
 
 				$('#bulkLoadSpinner').hide();
 
 				$('#successDocs, #postProcessing').fadeIn();
+
+				$db = $.couch.db(dbName);
 
 				// check presence of recline design document in the database
 				$db.allDocs({
@@ -553,13 +567,13 @@ Consists in 5 steps:
 				});
 
 				var successCount = 0;
-				for (i in result) {
-					if (!result[i].error) {
+				for (i in result.response) {
+					if (!result.response[i].error) {
 					// show confirmation for successful document insert
 						// show list of inserted files by Id
 							successCount++;
 					}
-					else if (result[i].error == 'conflict') {
+					else if (result.response[i].error == 'conflict') {
 					// show conflict documents and provide overwrite option
 
 						// display the failed documents div in case it is not already visible
@@ -571,7 +585,7 @@ Consists in 5 steps:
 							.attr('id','doc'+i)
 
 						$conflictDoc.find('span')
-							.text(result[i].id);
+							.text(result.response[i].id);
 
 						$conflictDoc.find('input')
 							.attr('fileName', docs[i]._id)
@@ -583,20 +597,20 @@ Consists in 5 steps:
 							.fadeIn();
 
 						// get revision id of existing document
-							$db.allDocs({
-								keys: [result[i].id],
-								context: $conflictDoc.find('input'),
-								success: function(data) {
-									this.context
-										.data('rev',data.rows[0].value.rev);
-								},
-								error: function(jqXHR, textStatus, errorThrown) {
-								// throw appropriate error message
-									console.log(jqXHR);
-									console.log(textStatus);
-									console.log(errorThrown);
-								}
-							});
+						$db.allDocs({
+							keys: [result.response[i].id],
+							context: $conflictDoc.find('input'),
+							success: function(data) {
+								this.context
+									.data('rev',data.rows[0].value.rev);
+							},
+							error: function(jqXHR, textStatus, errorThrown) {
+							// throw appropriate error message
+								console.log(jqXHR);
+								console.log(textStatus);
+								console.log(errorThrown);
+							}
+						});
 					}
 					else {
 					// show failed document inserts and provide retry option
@@ -610,10 +624,10 @@ Consists in 5 steps:
 							.attr('id','doc'+i)
 
 						$failDoc.find('span').eq(1)
-							.text(result[i].id);
+							.text(result.response[i].id);
 
 						$failDoc.find('span').eq(2)
-							.text(result[i].error + ': ' + result[i].reason);
+							.text(result.response[i].error + ': ' + result.response[i].reason);
 
 						$failDoc.find('input')
 							.attr('fileName', docs[i]._id)
@@ -625,20 +639,20 @@ Consists in 5 steps:
 							.fadeIn();
 
 						// get revision id of existing document
-							$db.allDocs({
-								keys: [result[i].id],
-								context: $failDoc.find('input'),
-								success: function(data) {
-									this.context
-										.data('rev',data.rows[0].value.rev);
-								},
-								error: function(jqXHR, textStatus, errorThrown) {
-								// throw appropriate error message
-									console.log(jqXHR);
-									console.log(textStatus);
-									console.log(errorThrown);
-								}
-							});
+						$db.allDocs({
+							keys: [result.response[i].id],
+							context: $failDoc.find('input'),
+							success: function(data) {
+								this.context
+									.data('rev',data.rows[0].value.rev);
+							},
+							error: function(jqXHR, textStatus, errorThrown) {
+							// throw appropriate error message
+								console.log(jqXHR);
+								console.log(textStatus);
+								console.log(errorThrown);
+							}
+						});
 					}
 				}
 				if (successCount > 1)
@@ -648,19 +662,16 @@ Consists in 5 steps:
 				else
 				// successCount == 0
 					$('#successDocs').find('p').html('No new document was inserted');
-			},
-			error: function(jqXHR, textStatus, errorThrown) {
-			// throw appropriate error message
-				$('#step4').html(textStatus + ' ' + errorThrown);
-				console.log(jqXHR);
-				console.log(textStatus);
-				console.log(errorThrown);
+			
 			}
-		});
-
-
-// code to remember:     $.couch.urlPrefix = urlPrefix;	
-// code to remember 2: JSON.stringify(array,null,'\t') or JSON.stringify(array,null,4) to have 4 spaces as separator
+			else {
+			// throw appropriate error message
+				$('#step4').html(result.response.textStatus + ' ' + result.response.errorThrown);
+				console.log(result.response.jqXHR);
+				console.log(result.response.textStatus);
+				console.log(result.response.errorThrown);
+			}
+		}
 	}
 
     $(document).ready(function() {
@@ -741,7 +752,6 @@ Consists in 5 steps:
 			}
 			else if (currentStep == 4) {
 			// step 4, load documents into couchdb
-
 				// 4.2 generate couchdb documents
 				var docs = generateDocuments ();
 // temporary preview of the documents:
@@ -750,9 +760,7 @@ Consists in 5 steps:
 				.html(myText)
 */
 				// 4.3 push documents to couchdb
-				pushToDB(docs);
-
-				
+				pushToDB(docs);				
 			}
 
 		});
