@@ -1,7 +1,7 @@
 /*
 csv2couchdb couchapp released under MIT License
-(c) Mango Information Systems SPRL - 2011
-version 0.2 - August, 8th 2011
+(c) Mango Information Systems SPRL - 2011-2012
+version 0.3 - February, 27th 2012
 
 todo:
 	handle file not conform error (when file is not a csv)
@@ -430,7 +430,7 @@ Consists in 5 steps:
 
 	function generateDocuments () {
 	// generate JSON couchdb document
-	// fileDiv is a jquery selector containing the files information, whereas opts are the optiosn applicable to all files
+	// fileDiv is a jquery selector containing the files information, whereas opts are the options applicable to all files
 		var result = [];
 	
 		// get output format value
@@ -455,7 +455,7 @@ Consists in 5 steps:
 			// update start and end lines (0-indexed)
 			fileOptions.startLine--;
 			fileOptions.endLine--;
-			
+
 			fileOptions.customHeaders = [];
 			
 			$(this).find('th > span').each(function() {
@@ -469,7 +469,6 @@ Consists in 5 steps:
 
 				// convert the file content into a javascript array of JSON objects
 				JSONdoc = $.csvIn.toJSON(filesData[fileIndex].data, fileOptions);
-
 
 				if (ids == 'custom') {
 				// process with generation of custom _id : file name and row number
@@ -491,24 +490,17 @@ Consists in 5 steps:
 			else {
 			// generate one document per file
 
-				// convert the file content into a javascript array
-				var fileArray = $.csvIn.toArray(filesData[fileIndex].data, fileOptions);
-
 				JSONdoc = {};
+
+				// convert the file content into a javascript array
+				JSONdoc.rows = $.csvIn.toArray(filesData[fileIndex].data, fileOptions);
 				
 				if (ids == 'custom')
 				// generate custom _id : file name
 						JSONdoc._id = filesData[fileIndex].name;
 				
 				JSONdoc.headers = fileOptions.customHeaders;
-
-				if (fileOptions.headerCheck) {
-				// store header separately 
-					fileArray.shift();
-				}
-
-				JSONdoc.rows = fileArray;
-				
+		
 				// add array as a document
 				result.push(JSONdoc);				
 			}
