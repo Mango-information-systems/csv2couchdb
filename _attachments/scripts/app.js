@@ -726,6 +726,7 @@ Consists in 5 steps:
 				$.couch.allDbs({
 					success: function(data) {
 						$dbsSelect = $('#dbName');
+						$dbsSelect.empty();
 						data.sort();
 						for (i in data) {
 							if (data[i][0] !='_') {
