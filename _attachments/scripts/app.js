@@ -460,7 +460,7 @@ Consists in 5 steps:
 			
 			$(this).find('th > span').each(function() {
 			// retrieve custom headers labels
-				fileOptions.customHeaders.push($(this).text());
+				fileOptions.customHeaders.push($(this).text().trim());
 			});
 			
 			// generate JSON document
