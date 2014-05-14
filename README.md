@@ -80,15 +80,17 @@ Consider the following CSV file that would be stored in your computer:
     
 ### Demo
 
-A demo is available at this location: http://mango-reports.cloudant.com/mango-apps/_design/csv2couchdb/index.html
-**Warning**: the demo couch is read-only, so you will not have access to the whole application. We recommend replicating to your own couch to get all features (see next section).
+~~A demo is available at this location: http://mango-reports.cloudant.com/mango-apps/_design/csv2couchdb/index.html
+**Warning**: the demo couch is read-only, so you will not have access to the whole application. We recommend replicating to your own couch to get all features (see next section).~~
     
 ###Installation
 
-Simply replicate the sample couchapp to your couchdb instance:
+~~Simply replicate the sample couchapp to your couchdb instance:
     
-    curl -X POST http://user:pass@YOURCOUCH/_replicate -d '{"source":"http://mango-reports.cloudant.com/mango-apps/","target":"YOURDB", "doc_ids":["_design/csv2couchdb"]}' -H "Content-type: application/json"
-    
+    curl -X POST http://user:pass@YOURCOUCH/_replicate -d '{"source":"http://mango-reports.cloudant.com/mango-apps/","target":"YOURDB", "doc_ids":["_design/csv2couchdb"]}' -H "Content-type: application/json"~~
+
+Clone this repository into the right folder, and you should be good to go.
+
 After you install it, the app is available from this url: 
 
 http://yourcouch/yourdb/_design/csv2couchdb/index.html
@@ -104,35 +106,7 @@ Thanks for reporting any issue that you would find.
 
 ### Roadmap
 
-#### Corrections and enhancements
-
-The following changes are planned:
-
-* Improve errors handling
-* If possible, solve crash of the app in Google Chrome when parsing of large files
-* Performance improvement
-
-#### New features
-
-Features will be added according from feedback received from users.
-
-Thanks for telling us the features you would like to see:
-
-* Sources
-    * API: load data from APIs
-    * allow entering data in a text area input
-    * Support fixed-length files
-    * Read Excel file format
-
-* Document generation
-    * batch mode: support loading of multiple files that all have the same structure, without having to define settings for each of them
-    * Support addition of extra fields to the document, typed by the user
-    * Add data type selection option
-
-* Possible further extensions
-    * support RDBMS as a source
-    * allow transformation of data (joining from different sources, more advanced filtering, aggregation ...)
-    * create server side version of the tool, with automated run option (scheduling)
+This app is not maintained anymore. Compatibility with newer versions of couchdb has not been checked.
 
 contact: either via github message, twitter ([@mango_info](http://twitter.com/mango_info)) or via contact form in http://www.mango-is.com
 
